@@ -1,38 +1,42 @@
-var items = JSON.parse(localStorage.getItem("todo-list")) || [];
-function additems() {
-  var inputBox = document.querySelector("#input");
-  var item = inputBox.value;
-  if (item === "")
-    return (document.getElementById("list").innerHTML =alert(
-      "Enter an item"));
-  items.push({
-    value: item,
-  });
+setInterval(showTime, 1000);
+function showTime() {
+    
 
-  localStorage.setItem("todo-list", JSON.stringify(items));
-  listItems();
-  inputBox.value = "";
+    	
+    
+
+    let time = new Date();
+    
+    let dates = time.getFullYear()+'-'+(time.getMonth()+1)+'-'+time.getDate();
+    
+    let hour = time.getHours();
+    let min = time.getMinutes();
+    let sec = time.getSeconds();
+    am_pm = "AM";
+    if (hour >= 12) {
+        if (hour > 12) hour -= 12;
+        am_pm = "PM";
+    } else if (hour == 0) {
+        hr = 12;
+        am_pm = "AM";
+    }
+ 
+    hour =
+        hour < 10 ? "0" + hour : hour;
+    min = min < 10 ? "0" + min : min;
+    sec = sec < 10 ? "0" + sec : sec;
+ 
+    let currentTime =
+        hour +
+        ":" +
+        min +
+        ":" +
+        sec +
+        am_pm;
+    let currentdate_time=dates + ' ' + currentTime;
+    document.getElementById("clock").innerHTML = currentdate_time;
+    
+    
 }
-
-function deleteItem(index) {
-  items.splice(index, 1);
-  localStorage.setItem("todo-list", JSON.stringify(items));
-  listItems();
-}
-
-function listItems() {
-  var list_item = "";
-  for (var k = 0; k < items.length; k++) {
-    list_item += "<li>";
-    list_item += items[k].value + " ";
-    list_item +=
-      "<span onclick='deleteItem(" +
-      k +
-      ")'><button class='remove'>Remove</button></span></li>";
-  }
-  document.querySelector("#todo-list").innerHTML = list_item;
-}
-
-(function () {
-  listItems();
-})();
+ 
+showTime();
